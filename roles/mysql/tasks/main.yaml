@@ -20,8 +20,9 @@
 - name: connect to mysql server
   community.mysql.mysql_info: #mysql -h <host-address> -u root -p<password>
     login_user: root
-    # login_password: "{{ mysql_root_password }}"
-    login_password: "{{ lookup('amazon.aws.aws_ssm', '/expense/mysql/mysql_root_password', decrypt=true ) }}"
+    # login_password: ExpenseApp@1  
+    # login_password: "{{ mysql_root_password }}" --> to use vault
+    login_password: "{{ lookup('amazon.aws.aws_ssm', '/expense/mysql/mysql_root_password', decrypt=true ) }}" # using aws ssm parameter to store the password
     login_host: "{{ mysql_host }}"
   register: mysql_info
   ignore_errors: true    # ignore error and proceeds to next task
